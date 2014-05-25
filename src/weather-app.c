@@ -271,7 +271,8 @@ static void window_load(Window *window) {
 
   
   // create hour layer - this is where time goes
-  text_time_layer = text_layer_create(GRect(25, 13, 70, 70));
+  text_time_layer = text_layer_create(GRect(0, 13, 144, 70));
+  text_layer_set_text_alignment(text_time_layer, GTextAlignmentCenter);
   text_layer_set_text_color(text_time_layer, GColorWhite);
   text_layer_set_background_color(text_time_layer, GColorClear);
   text_layer_set_font(text_time_layer, font39);
@@ -302,8 +303,8 @@ static void window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(text_day_layer));
   
   
-  // create date layer - this is where the date goes
-  text_date_layer = text_layer_create(GRect(50, 110, 50, 30));
+  // create month layer - this is where the date goes
+  text_date_layer = text_layer_create(GRect(52, 110, 50, 30));
   text_layer_set_text_alignment(text_date_layer, GTextAlignmentCenter);
   text_layer_set_text_color(text_date_layer, GColorWhite);
   text_layer_set_background_color(text_date_layer, GColorClear);
@@ -395,7 +396,7 @@ void handle_tap(AccelAxisType axis, int32_t direction) {
 // show the date and time every minute
 void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
   // Need to be static because they're used by the system later.
-  static char hour_text[] = "00";
+  static char hour_text[] = "00x00";
   static char minute_text[] = "00";
   static char day_text[] = "00";
   static char month_text[] = "Xxx";
@@ -404,14 +405,14 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
  
   char *time_format;
 
-  strftime(hour_text, sizeof(hour_text), "%I", tick_time);
+  strftime(hour_text, sizeof(hour_text), "%R", tick_time);
   text_layer_set_text(text_time_layer, hour_text);
 
   strftime(month_text, sizeof(month_text), "%b", tick_time);
   text_layer_set_text(text_date_layer, month_text);
 
   strftime(minute_text, sizeof(minute_text), "%M", tick_time);
-  text_layer_set_text(text_minute_layer, minute_text);
+  //text_layer_set_text(text_minute_layer, minute_text);
 
   strftime(day_text, sizeof(day_text), "%e", tick_time);
   text_layer_set_text(text_day_layer, day_text);
