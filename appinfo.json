@@ -15,6 +15,11 @@
     "resources": {
         "media": [
             {
+                "name": "BMW_M",
+                "type": "png",
+                "file": "images/bmw-m-series-logo-720p.png"
+            },
+            {
                 "name": "brazil_flag",
                 "type": "png",
                 "file": "images/BrazilFlag84x50.png"
@@ -28,11 +33,6 @@
                 "name": "WATCH_BATTERY_CHARGE",
                 "type": "png",
                 "file": "images/watch-battery-charge.png"
-            },
-            {
-                "name": "BMW_BK",
-                "type": "png",
-                "file": "images/bmw_logo_bk.png"
             },
             {
                 "name": "BLUETOOTH_ON",

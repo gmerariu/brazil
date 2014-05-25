@@ -33,7 +33,7 @@ GFont *font10;
 GFont *font12;
 
 static GBitmap *image = NULL;
-static GBitmap *image_BMW = NULL;
+GBitmap *image_BMW = NULL;
 static GBitmap *image_BT = NULL;
 static GBitmap *image_error = NULL;
 static GBitmap *icon_battery_normal;
@@ -53,6 +53,8 @@ static BitmapLayer *image_layer_BT;
 static uint8_t battery_level;
 static bool battery_plugged;
 static char battery_level_string[5];
+
+//Layer *window_layer;
 
 //static bool Bluetooth_on_off;
 
@@ -81,19 +83,32 @@ enum {
 };
 
 static void disp_update(void){
-    //if (c_or_f == false){
-      //c_or_f = true;
-      unit_layer="C";
-      text_layer_set_text(text_unit_layer, unit_layer);
-      text_layer_set_text(text_temp_layer, str_temp);
+  
+  Layer *window_layer = window_get_root_layer(window);
+  
+      
+  
+  if (c_or_f == false){
+      c_or_f = true;
+      //unit_layer="C";
+      //image_BMW = gbitmap_create_with_resource(RESOURCE_ID_brazil_flag);
+      //image_layer_BMW = bitmap_layer_create(GRect(0, 0, 144, 168));
+      //bitmap_layer_set_bitmap(image_layer_BMW, image_BMW);
+      //layer_add_child(window_layer, bitmap_layer_get_layer(image_layer_BMW));
       //text_layer_set_text(text_stock_layer, str_stock);
-    //} else {
-      //c_or_f = false;
+    } else {
+      c_or_f = false;
+      //image_BMW = gbitmap_create_with_resource(RESOURCE_ID_BMW_M);
+      //image_layer_BMW = bitmap_layer_create(GRect(0, 0, 144, 168));
+      //bitmap_layer_set_bitmap(image_layer_BMW, image_BMW);
+      //layer_add_child(window_layer, bitmap_layer_get_layer(image_layer_BMW));  
       //unit_layer="F";
       //text_layer_set_text(text_unit_layer, unit_layer);
       //text_layer_set_text(text_temp_layer, str_temp_F);
-      //    }
+          }
   
+      text_layer_set_text(text_unit_layer, unit_layer);
+      text_layer_set_text(text_temp_layer, str_temp);
       text_layer_set_text(text_stock_layer, str_stock);
   
   
@@ -222,8 +237,9 @@ static void battery_state_handler(BatteryChargeState charge) {
 */
 
 static void window_load(Window *window) {
-  Layer *window_layer = window_get_root_layer(window);
+  
 
+  Layer *window_layer = window_get_root_layer(window);
     
   font49 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_49));
   font39 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_39));
@@ -239,7 +255,7 @@ static void window_load(Window *window) {
   image_error = gbitmap_create_with_resource(RESOURCE_ID_ERROR);
   
 
-  //Create background BMW pic 
+  //Create background pic 
   image_BMW = gbitmap_create_with_resource(RESOURCE_ID_brazil_flag);
   image_layer_BMW = bitmap_layer_create(GRect(0, 0, 144, 168));
   bitmap_layer_set_bitmap(image_layer_BMW, image_BMW);
@@ -288,7 +304,8 @@ static void window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(text_minute_layer));
   
   // create wkday layer - this is where time goes
-  text_wkday_layer = text_layer_create(GRect(25, 110, 50, 30));
+  text_wkday_layer = text_layer_create(GRect(0, 110, 144, 50));
+  text_layer_set_text_alignment(text_wkday_layer, GTextAlignmentCenter);
   text_layer_set_text_color(text_wkday_layer, GColorWhite);
   text_layer_set_background_color(text_wkday_layer, GColorClear);
   text_layer_set_font(text_wkday_layer, font19);
@@ -390,17 +407,17 @@ static void app_message_init(void) {
 void handle_tap(AccelAxisType axis, int32_t direction) {
     
   //vibes_short_pulse();
-  //disp_update();
+  disp_update();
 }
 
 // show the date and time every minute
 void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
   // Need to be static because they're used by the system later.
-  static char hour_text[] = "00x00";
+  static char hour_text[] = "x0x00";
   static char minute_text[] = "00";
   static char day_text[] = "00";
   static char month_text[] = "Xxx";
-  static char wkday_text[] = "Xxx";
+  static char wkday_text[] = "XxxxXxxxxx";
 
  
   char *time_format;
@@ -408,19 +425,21 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
   strftime(hour_text, sizeof(hour_text), "%R", tick_time);
   text_layer_set_text(text_time_layer, hour_text);
 
-  strftime(month_text, sizeof(month_text), "%b", tick_time);
-  text_layer_set_text(text_date_layer, month_text);
-
-  strftime(minute_text, sizeof(minute_text), "%M", tick_time);
+  //strftime(minute_text, sizeof(minute_text), "%M", tick_time);
   //text_layer_set_text(text_minute_layer, minute_text);
+  
+  //strftime(month_text, sizeof(month_text), "%b", tick_time);
+  //text_layer_set_text(text_date_layer, month_text);
 
-  strftime(day_text, sizeof(day_text), "%e", tick_time);
-  text_layer_set_text(text_day_layer, day_text);
+
+
+  //strftime(day_text, sizeof(day_text), "%e", tick_time);
+  //text_layer_set_text(text_day_layer, day_text);
 
   //text_layer_set_text(text_day_layer, "30");
  
   
-  strftime(wkday_text, sizeof(wkday_text), "%a", tick_time);
+  strftime(wkday_text, sizeof(wkday_text), "%c", tick_time);
   text_layer_set_text(text_wkday_layer, wkday_text);
   
   //text_layer_set_text(text_stock_layer, str_stock);

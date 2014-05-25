@@ -30,7 +30,7 @@ function getAndShowWeather ( ) {
         getCurrentWeather(position.coords.longitude, position.coords.latitude);
     });
 
-  setTimeout(getAndShowWeather, 3600000);
+  setTimeout(getAndShowWeather, 1800000);
 }
 
 function fetchStockQuote(symbol) {
