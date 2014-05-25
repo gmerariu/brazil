@@ -9,7 +9,7 @@ TextLayer *text_time_layer;
 TextLayer *text_temp_layer; 
 
 TextLayer *text_unit_layer;
-static char *unit_layer="C";
+char *unit_layer="C";
 static bool c_or_f;
 static char *str_temp;
 static char *str_temp_F;
@@ -34,6 +34,7 @@ GFont *font12;
 
 static GBitmap *image = NULL;
 GBitmap *image_BMW = NULL;
+GBitmap *image_BR = NULL;
 static GBitmap *image_BT = NULL;
 static GBitmap *image_error = NULL;
 static GBitmap *icon_battery_normal;
@@ -48,6 +49,7 @@ static Layer *status_layer;
 
 static BitmapLayer *image_layer;
 static BitmapLayer *image_layer_BMW;
+static BitmapLayer *image_layer_BR;
 static BitmapLayer *image_layer_BT;
 
 static uint8_t battery_level;
@@ -85,30 +87,31 @@ enum {
 static void disp_update(void){
   
   Layer *window_layer = window_get_root_layer(window);
+ 
+  /*
   
-      
-  
-  if (c_or_f == false){
-      c_or_f = true;
-      //unit_layer="C";
-      //image_BMW = gbitmap_create_with_resource(RESOURCE_ID_brazil_flag);
-      //image_layer_BMW = bitmap_layer_create(GRect(0, 0, 144, 168));
-      //bitmap_layer_set_bitmap(image_layer_BMW, image_BMW);
-      //layer_add_child(window_layer, bitmap_layer_get_layer(image_layer_BMW));
-      //text_layer_set_text(text_stock_layer, str_stock);
-    } else {
-      c_or_f = false;
-      //image_BMW = gbitmap_create_with_resource(RESOURCE_ID_BMW_M);
-      //image_layer_BMW = bitmap_layer_create(GRect(0, 0, 144, 168));
-      //bitmap_layer_set_bitmap(image_layer_BMW, image_BMW);
-      //layer_add_child(window_layer, bitmap_layer_get_layer(image_layer_BMW));  
-      //unit_layer="F";
-      //text_layer_set_text(text_unit_layer, unit_layer);
-      //text_layer_set_text(text_temp_layer, str_temp_F);
-          }
-  
-      text_layer_set_text(text_unit_layer, unit_layer);
+  if ((unit_layer = "C")){
+      //c_or_f = true;
+      unit_layer = "F";
+      image_BMW = gbitmap_create_with_resource(RESOURCE_ID_BMW_M);
+      image_layer_BMW = bitmap_layer_create(GRect(0, 0, 144, 168));
+      bitmap_layer_set_bitmap(image_layer_BMW, image_BMW);
+      layer_add_child(window_layer, bitmap_layer_get_layer(image_layer_BMW));
       text_layer_set_text(text_temp_layer, str_temp);
+      
+    } else {
+      //c_or_f = false;
+      image_BR = gbitmap_create_with_resource(RESOURCE_ID_brazil_flag);
+      image_layer_BR = bitmap_layer_create(GRect(0, 0, 144, 168));
+      bitmap_layer_set_bitmap(image_layer_BR, image_BR);
+      layer_add_child(window_layer, bitmap_layer_get_layer(image_layer_BR));  
+      unit_layer="C";
+      text_layer_set_text(text_temp_layer, str_temp_F);
+          }
+  */
+    
+      text_layer_set_text(text_unit_layer, unit_layer);
+      text_layer_set_text(text_temp_layer, str_temp);    
       text_layer_set_text(text_stock_layer, str_stock);
   
   
@@ -379,6 +382,11 @@ static void window_unload(Window *window) {
   layer_remove_from_parent(bitmap_layer_get_layer(image_layer_BMW));
   bitmap_layer_destroy(image_layer_BMW);
   
+  gbitmap_destroy(image_BR);
+  layer_remove_from_parent(bitmap_layer_get_layer(image_layer_BR));
+  bitmap_layer_destroy(image_layer_BR);
+  
+  
   gbitmap_destroy(image_BT);
   layer_remove_from_parent(bitmap_layer_get_layer(image_layer_BT));
   bitmap_layer_destroy(image_layer_BT);
@@ -422,7 +430,7 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
  
   char *time_format;
 
-  strftime(hour_text, sizeof(hour_text), "%R", tick_time);
+  strftime(hour_text, sizeof(hour_text), "%r", tick_time);
   text_layer_set_text(text_time_layer, hour_text);
 
   //strftime(minute_text, sizeof(minute_text), "%M", tick_time);
