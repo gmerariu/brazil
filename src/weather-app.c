@@ -180,7 +180,7 @@ static void p_battery_layer_update_callback(Layer *layer, GContext *ctx) {
     graphics_draw_bitmap_in_rect(ctx, icon_battery_normal, GRect(0, 0, 35, 15));
     graphics_context_set_stroke_color(ctx, GColorBlack);
     graphics_context_set_fill_color(ctx, GColorWhite);
-    graphics_fill_rect(ctx, GRect(16, 5, (uint8_t)((battery_level / 100.0) * 11.0), 4), 0, GCornerNone);
+    graphics_fill_rect(ctx, GRect(15, 4, (uint8_t)((battery_level / 100.0) * 11.0), 6), 0, GCornerNone);
     } else {
     graphics_draw_bitmap_in_rect(ctx, icon_battery_charge, GRect(0, 0, 35, 15));
   }
@@ -230,7 +230,7 @@ static void window_load(Window *window) {
   font21 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_21));
   font19 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_19));
   font16 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_16));
-  font12 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_12));
+  font12 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_12));
   font10 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_10));
   
   icon_battery_normal = gbitmap_create_with_resource(RESOURCE_ID_WATCH_BATTERY_NORMAL);
@@ -254,7 +254,7 @@ static void window_load(Window *window) {
   
  //Create bluetooth pic 
   image_BT = gbitmap_create_with_resource(RESOURCE_ID_BLUETOOTH_ON);
-  image_layer_BT = bitmap_layer_create(GRect(0, 0, 25, 25));
+  image_layer_BT = bitmap_layer_create(GRect(0, 0, 25, 15));
   bitmap_layer_set_bitmap(image_layer_BT, image_BT);
   layer_add_child(window_layer, bitmap_layer_get_layer(image_layer_BT));
      
@@ -312,7 +312,7 @@ static void window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(text_date_layer));
 
   // create temperature layer - this is where the temperature goes
-  text_temp_layer = text_layer_create(GRect(144-44, 168-26, 40, 40));
+  text_temp_layer = text_layer_create(GRect(140-44, 168-26, 40, 40));
   text_layer_set_text_alignment(text_temp_layer, GTextAlignmentRight);
   text_layer_set_text_color(text_temp_layer, GColorWhite);
   text_layer_set_background_color(text_temp_layer, GColorClear);
@@ -320,11 +320,11 @@ static void window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(text_temp_layer));
   
   // create temperature label layer - this is where the temperature goes
-  text_unit_layer = text_layer_create(GRect(140-15, 130, 15, 15));
+  text_unit_layer = text_layer_create(GRect(140-15, 135, 15, 15));
   text_layer_set_text_alignment(text_unit_layer, GTextAlignmentRight);
   text_layer_set_text_color(text_unit_layer, GColorWhite);
   text_layer_set_background_color(text_unit_layer, GColorClear);
-  text_layer_set_font(text_unit_layer, font12);
+  text_layer_set_font(text_unit_layer, font10);
   layer_add_child(window_layer, text_layer_get_layer(text_unit_layer));
 
     // create stock label layer - this is where the temperature goes
