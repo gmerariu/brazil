@@ -261,7 +261,7 @@ static void window_load(Window *window) {
     
   
   // create battery level layer - this is where time goes
-  battery_level_layer = text_layer_create(GRect(100, 0, 20, 15));
+  battery_level_layer = text_layer_create(GRect(103, 0, 20, 15));
   text_layer_set_text_alignment(battery_level_layer, GTextAlignmentRight);
   text_layer_set_text_color(battery_level_layer, GColorWhite);
   text_layer_set_background_color(battery_level_layer, GColorClear);
