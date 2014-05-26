@@ -9,7 +9,7 @@ TextLayer *text_time_layer;
 TextLayer *text_temp_layer; 
 
 TextLayer *text_unit_layer;
-char *unit_layer="C";
+static char *unit_layer="C";
 static bool c_or_f;
 static char *str_temp;
 static char *str_temp_F;
@@ -22,6 +22,7 @@ TextLayer *text_wkday_layer;
 TextLayer *battery_level_layer;
 
 TextLayer *text_stock_layer;
+TextLayer *text_stock_change_layer;
 
 GFont *font49;
 GFont *font39;
@@ -86,33 +87,11 @@ enum {
 
 static void disp_update(void){
   
-  Layer *window_layer = window_get_root_layer(window);
- 
-  /*
-  
-  if ((unit_layer = "C")){
-      //c_or_f = true;
-      unit_layer = "F";
-      image_BMW = gbitmap_create_with_resource(RESOURCE_ID_BMW_M);
-      image_layer_BMW = bitmap_layer_create(GRect(0, 0, 144, 168));
-      bitmap_layer_set_bitmap(image_layer_BMW, image_BMW);
-      layer_add_child(window_layer, bitmap_layer_get_layer(image_layer_BMW));
-      text_layer_set_text(text_temp_layer, str_temp);
-      
-    } else {
-      //c_or_f = false;
-      image_BR = gbitmap_create_with_resource(RESOURCE_ID_brazil_flag);
-      image_layer_BR = bitmap_layer_create(GRect(0, 0, 144, 168));
-      bitmap_layer_set_bitmap(image_layer_BR, image_BR);
-      layer_add_child(window_layer, bitmap_layer_get_layer(image_layer_BR));  
-      unit_layer="C";
-      text_layer_set_text(text_temp_layer, str_temp_F);
-          }
-  */
-    
+     
       text_layer_set_text(text_unit_layer, unit_layer);
       text_layer_set_text(text_temp_layer, str_temp);    
       text_layer_set_text(text_stock_layer, str_stock);
+      text_layer_set_text(text_stock_change_layer, str_stock_change);
   
   
 }
@@ -132,6 +111,7 @@ void in_received_handler(DictionaryIterator *received, void *context) {
   str_temp = temperature->value->cstring;
   str_temp_F = temperatureF->value->cstring;
   str_stock = stock->value->cstring;
+  str_stock_change = stock_change->value->cstring;
   
   //strncpy(str_stock_change, stock_change->value->cstring, 6);
    
@@ -348,12 +328,20 @@ static void window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(text_unit_layer));
 
     // create stock label layer - this is where the temperature goes
-  text_stock_layer = text_layer_create(GRect(47,142, 50, 22));
+  text_stock_layer = text_layer_create(GRect(0,133, 144, 25));
   text_layer_set_text_alignment(text_stock_layer, GTextAlignmentCenter);
   text_layer_set_text_color(text_stock_layer, GColorWhite);
   text_layer_set_background_color(text_stock_layer, GColorClear);
   text_layer_set_font(text_stock_layer, font16);
   layer_add_child(window_layer, text_layer_get_layer(text_stock_layer));
+  
+      // create stock CHANGE label layer - this is where the temperature goes
+  text_stock_change_layer = text_layer_create(GRect(0,150, 144, 18));
+  text_layer_set_text_alignment(text_stock_change_layer, GTextAlignmentCenter);
+  text_layer_set_text_color(text_stock_change_layer, GColorWhite);
+  text_layer_set_background_color(text_stock_change_layer, GColorClear);
+  text_layer_set_font(text_stock_change_layer, font12);
+  layer_add_child(window_layer, text_layer_get_layer(text_stock_change_layer));
   
 }
 
@@ -368,6 +356,7 @@ static void window_unload(Window *window) {
   text_layer_destroy(battery_level_layer);
   text_layer_destroy(text_unit_layer);
   text_layer_destroy(text_stock_layer);
+  text_layer_destroy(text_stock_change_layer);
   
   layer_destroy(p_battery_layer);
   gbitmap_destroy(icon_battery_normal);
