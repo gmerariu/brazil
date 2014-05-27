@@ -14,6 +14,8 @@ static char *unit_layer="C";
 //static bool c_or_f;
 static char *str_temp;
 static char *str_temp_F;
+static char *str_temp_min;
+static char *str_temp_max;
 static char *str_stock = " ";
 static char *str_stock_change = " ";
 
@@ -21,6 +23,9 @@ TextLayer *text_day_layer;
 TextLayer *text_minute_layer;
 TextLayer *text_wkday_layer;
 TextLayer *battery_level_layer;
+
+TextLayer *text_temp_min;
+TextLayer *text_temp_max;
 
 TextLayer *text_stock_layer;
 TextLayer *text_stock_change_layer;
@@ -84,6 +89,8 @@ enum {
   WEATHER_ICON,
   WEATHER_ERROR,
   LOCATION,
+  TEMP_MIN,
+  TEMP_MAX
 };
 
 void disp_update(void){
@@ -93,6 +100,9 @@ void disp_update(void){
       text_layer_set_text(text_temp_layer, str_temp);    
       text_layer_set_text(text_stock_layer, str_stock);
       text_layer_set_text(text_stock_change_layer, str_stock_change);
+      text_layer_set_text(text_temp_min, str_temp_min); 
+      text_layer_set_text(text_temp_max, str_temp_max);  
+  
   
   
 }
@@ -108,11 +118,18 @@ void in_received_handler(DictionaryIterator *received, void *context) {
   Tuple *icon = dict_find(received, WEATHER_ICON);
   Tuple *stock = dict_find(received, LOCATION);
   Tuple *stock_change = dict_find(received, WEATHER_ERROR);
+  Tuple *temp_min = dict_find(received, TEMP_MIN);
+  Tuple *temp_max = dict_find(received, TEMP_MAX);
+  
   
   str_temp = temperature->value->cstring;
   str_temp_F = temperatureF->value->cstring;
   str_stock = stock->value->cstring;
   str_stock_change = stock_change->value->cstring;
+  str_temp_min = temp_min->value->cstring;
+  str_temp_max = temp_max->value->cstring;
+
+  
   
   //strncpy(str_stock_change, stock_change->value->cstring, 6);
    
@@ -347,6 +364,21 @@ static void window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(text_stock_change_layer));
   //fonts_get_system_font(FONT_KEY_GOTHIC_14)
   
+    // create temperature MIN layer 
+  text_temp_min = text_layer_create(GRect(33, 60, 20, 20));
+  text_layer_set_text_alignment(text_temp_min, GTextAlignmentLeft);
+  text_layer_set_text_color(text_temp_min, GColorWhite);
+  text_layer_set_background_color(text_temp_min, GColorClear);
+  text_layer_set_font(text_temp_min, fonts_get_system_font(FONT_KEY_GOTHIC_14));
+  layer_add_child(window_layer, text_layer_get_layer(text_temp_min));
+  
+      // create temperature MAX layer 
+  text_temp_max = text_layer_create(GRect(91, 60, 20, 20));
+  text_layer_set_text_alignment(text_temp_max, GTextAlignmentRight);
+  text_layer_set_text_color(text_temp_max, GColorWhite);
+  text_layer_set_background_color(text_temp_max, GColorClear);
+  text_layer_set_font(text_temp_max, fonts_get_system_font(FONT_KEY_GOTHIC_14));
+  layer_add_child(window_layer, text_layer_get_layer(text_temp_max));
   
 }
 
@@ -362,6 +394,8 @@ static void window_unload(Window *window) {
   text_layer_destroy(text_unit_layer);
   text_layer_destroy(text_stock_layer);
   text_layer_destroy(text_stock_change_layer);
+  text_layer_destroy(text_temp_min);
+  text_layer_destroy(text_temp_max);
   
   layer_destroy(p_battery_layer);
   gbitmap_destroy(icon_battery_normal);
@@ -398,9 +432,10 @@ static void window_unload(Window *window) {
 
 
 static void app_message_init(void) {
-  app_message_open(64, 64);
-  app_message_register_inbox_received(in_received_handler);
   
+  app_message_register_inbox_received(in_received_handler);
+  //app_message_open(128, 128);
+  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
   
 }
 

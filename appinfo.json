@@ -9,11 +9,13 @@
     },
     "versionLabel": "2.0",
     "appKeys": {
-        "temperature_f": 0,
+        "temp_max": 6,
+        "icon": 2,
         "location": 4,
-        "error": 3,
+        "temperature_f": 0,
+        "temp_min": 5,
         "temperature_c": 1,
-        "icon": 2
+        "error": 3
     },
     "companyName": "Lipe_Giba",
     "versionCode": 1,
