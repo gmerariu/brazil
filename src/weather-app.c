@@ -199,7 +199,7 @@ static void p_battery_layer_update_callback(Layer *layer, GContext *ctx) {
     graphics_draw_bitmap_in_rect(ctx, icon_battery_normal, GRect(0, 0, 35, 15));
     graphics_context_set_stroke_color(ctx, GColorBlack);
     graphics_context_set_fill_color(ctx, GColorWhite);
-    graphics_fill_rect(ctx, GRect(15, 4, (uint8_t)((battery_level / 100.0) * 11.0), 6), 0, GCornerNone);
+    graphics_fill_rect(ctx, GRect(16, 4, (uint8_t)((battery_level / 100.0) * 11.0), 6), 0, GCornerNone);
     } else {
     graphics_draw_bitmap_in_rect(ctx, icon_battery_charge, GRect(0, 0, 35, 15));
   }
@@ -268,7 +268,7 @@ static void window_load(Window *window) {
   BatteryChargeState initial = battery_state_service_peek();
   battery_level = initial.charge_percent;
   battery_plugged = initial.is_plugged;
-  p_battery_layer = layer_create(GRect(112,0,35,15));
+  p_battery_layer = layer_create(GRect(111,0,35,15));
   layer_set_update_proc(p_battery_layer, p_battery_layer_update_callback);
   layer_add_child(window_get_root_layer(window), p_battery_layer);
   
@@ -280,7 +280,7 @@ static void window_load(Window *window) {
      
     
   
-  // create battery level layer - this is where time goes
+  // create battery level layer 
   battery_level_layer = text_layer_create(GRect(103, 0, 20, 15));
   text_layer_set_text_alignment(battery_level_layer, GTextAlignmentRight);
   text_layer_set_text_color(battery_level_layer, GColorWhite);
