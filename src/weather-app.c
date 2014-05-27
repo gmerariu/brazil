@@ -1,6 +1,7 @@
 
 #include <pebble.h>
 #include "common.h"
+#include "pebble_fonts.h"
 
 
 static Window *window;
@@ -10,7 +11,7 @@ TextLayer *text_temp_layer;
 
 TextLayer *text_unit_layer;
 static char *unit_layer="C";
-static bool c_or_f;
+//static bool c_or_f;
 static char *str_temp;
 static char *str_temp_F;
 static char *str_stock = " ";
@@ -24,12 +25,12 @@ TextLayer *battery_level_layer;
 TextLayer *text_stock_layer;
 TextLayer *text_stock_change_layer;
 
-GFont *font49;
+//GFont *font49;
 GFont *font39;
 GFont *font21;
-GFont *font21B;
+//GFont *font21B;
 GFont *font19;
-GFont *font16;
+//GFont *font16;
 GFont *font10;
 GFont *font12;
 
@@ -85,9 +86,9 @@ enum {
   LOCATION,
 };
 
-static void disp_update(void){
+void disp_update(void){
+       
   
-     
       text_layer_set_text(text_unit_layer, unit_layer);
       text_layer_set_text(text_temp_layer, str_temp);    
       text_layer_set_text(text_stock_layer, str_stock);
@@ -145,7 +146,7 @@ void in_received_handler(DictionaryIterator *received, void *context) {
 
 /*
  * Status icon callback handler
- */
+
 static void status_layer_update_callback(Layer *layer, GContext *ctx) {
 
   graphics_context_set_compositing_mode(ctx, GCompOpAssign);
@@ -156,6 +157,7 @@ static void status_layer_update_callback(Layer *layer, GContext *ctx) {
     graphics_draw_bitmap_in_rect(ctx, icon_status_2, GRect(0, 0, 15, 15));
   }
 }
+ */
 
 /*
  * Set the status
@@ -224,14 +226,15 @@ static void window_load(Window *window) {
 
   Layer *window_layer = window_get_root_layer(window);
     
-  font49 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_49));
+  //font49 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_49));
   font39 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_39));
-  font21B = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_24));
+  //font21B = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_24));
   font21 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_21));
   font19 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_19));
-  font16 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_16));
-  font12 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_12));
+  //font16 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_16));
+  font12 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_12));
   font10 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_CONDENSED_10));
+  
   
   icon_battery_normal = gbitmap_create_with_resource(RESOURCE_ID_WATCH_BATTERY_NORMAL);
   icon_battery_charge = gbitmap_create_with_resource(RESOURCE_ID_WATCH_BATTERY_CHARGE);
@@ -291,7 +294,7 @@ static void window_load(Window *window) {
   text_layer_set_text_alignment(text_wkday_layer, GTextAlignmentCenter);
   text_layer_set_text_color(text_wkday_layer, GColorWhite);
   text_layer_set_background_color(text_wkday_layer, GColorClear);
-  text_layer_set_font(text_wkday_layer, font19);
+  text_layer_set_font(text_wkday_layer, font21);
   layer_add_child(window_layer, text_layer_get_layer(text_wkday_layer));
   
   // create day layer - this is where time goes
@@ -312,11 +315,11 @@ static void window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(text_date_layer));
 
   // create temperature layer - this is where the temperature goes
-  text_temp_layer = text_layer_create(GRect(140-44, 168-26, 40, 40));
+  text_temp_layer = text_layer_create(GRect(140-44, 168-30, 40, 40));
   text_layer_set_text_alignment(text_temp_layer, GTextAlignmentRight);
   text_layer_set_text_color(text_temp_layer, GColorWhite);
   text_layer_set_background_color(text_temp_layer, GColorClear);
-  text_layer_set_font(text_temp_layer, font21);
+  text_layer_set_font(text_temp_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
   layer_add_child(window_layer, text_layer_get_layer(text_temp_layer));
   
   // create temperature label layer - this is where the temperature goes
@@ -328,20 +331,22 @@ static void window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(text_unit_layer));
 
     // create stock label layer - this is where the temperature goes
-  text_stock_layer = text_layer_create(GRect(0,133, 144, 25));
+  text_stock_layer = text_layer_create(GRect(0,132, 144, 25));
   text_layer_set_text_alignment(text_stock_layer, GTextAlignmentCenter);
   text_layer_set_text_color(text_stock_layer, GColorWhite);
   text_layer_set_background_color(text_stock_layer, GColorClear);
-  text_layer_set_font(text_stock_layer, font16);
+  text_layer_set_font(text_stock_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
   layer_add_child(window_layer, text_layer_get_layer(text_stock_layer));
   
       // create stock CHANGE label layer - this is where the temperature goes
-  text_stock_change_layer = text_layer_create(GRect(0,150, 144, 18));
+  text_stock_change_layer = text_layer_create(GRect(0,148, 144, 18));
   text_layer_set_text_alignment(text_stock_change_layer, GTextAlignmentCenter);
   text_layer_set_text_color(text_stock_change_layer, GColorWhite);
   text_layer_set_background_color(text_stock_change_layer, GColorClear);
-  text_layer_set_font(text_stock_change_layer, font12);
+  text_layer_set_font(text_stock_change_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18));
   layer_add_child(window_layer, text_layer_get_layer(text_stock_change_layer));
+  //fonts_get_system_font(FONT_KEY_GOTHIC_14)
+  
   
 }
 
@@ -381,14 +386,14 @@ static void window_unload(Window *window) {
   bitmap_layer_destroy(image_layer_BT);
   
   // unload the fonts
-  fonts_unload_custom_font(font49);
+  //fonts_unload_custom_font(font49);
   fonts_unload_custom_font(font39);
   fonts_unload_custom_font(font21);
-  fonts_unload_custom_font(font21B);
+  //fonts_unload_custom_font(font21B);
   fonts_unload_custom_font(font19);
   fonts_unload_custom_font(font10);
   fonts_unload_custom_font(font12);
-  fonts_unload_custom_font(font16);
+  //fonts_unload_custom_font(font16);
 }
 
 
@@ -411,13 +416,13 @@ void handle_tap(AccelAxisType axis, int32_t direction) {
 void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
   // Need to be static because they're used by the system later.
   static char hour_text[] = "x0x00";
-  static char minute_text[] = "00";
-  static char day_text[] = "00";
-  static char month_text[] = "Xxx";
+  //static char minute_text[] = "00";
+  //static char day_text[] = "00";
+  //static char month_text[] = "Xxx";
   static char wkday_text[] = "XxxxXxxxxx";
 
  
-  char *time_format;
+  //char *time_format;
 
   strftime(hour_text, sizeof(hour_text), "%r", tick_time);
   text_layer_set_text(text_time_layer, hour_text);

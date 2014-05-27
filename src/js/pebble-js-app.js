@@ -83,6 +83,7 @@ function getCurrentWeather (lon, lat) {
             send.icon = icon;
             send.temperature_f = Number(response.currently.temperature).toFixed(0);
             send.temperature_c = Number(FtoC(response.currently.temperature)).toFixed(0);
+            //send.error = Number(price_change).toFixed(2);
             send.error = Number(price_change).toFixed(2);
             //send.error = "-0.99";
             send.location = Number(price).toFixed(2);
