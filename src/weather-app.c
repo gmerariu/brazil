@@ -214,11 +214,11 @@ static void p_battery_layer_update_callback(Layer *layer, GContext *ctx) {
 
 static void seconds_layer_update_callback(Layer *layer, GContext *ctx) {
     
-    graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34, 1, 64, 8));
+    graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34, 3, 64, 8));
     graphics_context_set_compositing_mode(ctx, GCompOpAssign);
     graphics_context_set_stroke_color(ctx, GColorClear);
     graphics_context_set_fill_color(ctx, GColorWhite);
-    graphics_fill_rect(ctx, GRect(36, 2, second_text, 5), 0, GCornersAll);
+    graphics_fill_rect(ctx, GRect(36, 4, second_text, 5), 0, GCornersAll);
   
 }
 
@@ -285,7 +285,7 @@ static void window_load(Window *window) {
   
     //Create background seconds box
   image_seconds = gbitmap_create_with_resource(RESOURCE_ID_SECONDS_IMAGE);
-  image_seconds_layer = bitmap_layer_create(GRect(34, 1, 64, 8));
+  image_seconds_layer = bitmap_layer_create(GRect(34, 3, 64, 8));
   bitmap_layer_set_bitmap(image_seconds_layer, image_seconds);
   layer_add_child(window_layer, bitmap_layer_get_layer(image_seconds_layer));
     
