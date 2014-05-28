@@ -43,6 +43,7 @@ static GBitmap *image = NULL;
 GBitmap *image_BMW = NULL;
 GBitmap *image_BR = NULL;
 static GBitmap *image_BT = NULL;
+static GBitmap *image_seconds = NULL;
 static GBitmap *image_error = NULL;
 static GBitmap *icon_battery_normal;
 static GBitmap *icon_battery_charge; 
@@ -51,6 +52,7 @@ static GBitmap *icon_status_1;
 static GBitmap *icon_status_2;
 
 static Layer *p_battery_layer;
+static Layer *seconds_layer;
 static int g_status_display = 0;
 static Layer *status_layer;
 
@@ -58,10 +60,13 @@ static BitmapLayer *image_layer;
 static BitmapLayer *image_layer_BMW;
 static BitmapLayer *image_layer_BR;
 static BitmapLayer *image_layer_BT;
+static BitmapLayer *image_seconds_layer;
 
 static uint8_t battery_level;
 static bool battery_plugged;
 static char battery_level_string[5];
+
+static int second_text =0;
 
 //Layer *window_layer;
 
@@ -190,7 +195,7 @@ void set_status(int new_status_display) {
 static void p_battery_layer_update_callback(Layer *layer, GContext *ctx) {
 
   graphics_context_set_compositing_mode(ctx, GCompOpAssign);
-   snprintf(battery_level_string, 5, "%d", battery_level);
+  snprintf(battery_level_string, 5, "%d", battery_level);
   text_layer_set_text(battery_level_layer, battery_level_string);
   //text_layer_set_text(text_unit_layer, unit_layer);
   
@@ -204,6 +209,19 @@ static void p_battery_layer_update_callback(Layer *layer, GContext *ctx) {
     graphics_draw_bitmap_in_rect(ctx, icon_battery_charge, GRect(0, 0, 35, 15));
   }
 }
+
+
+
+static void seconds_layer_update_callback(Layer *layer, GContext *ctx) {
+    
+    graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34, 1, 64, 8));
+    graphics_context_set_compositing_mode(ctx, GCompOpAssign);
+    graphics_context_set_stroke_color(ctx, GColorClear);
+    graphics_context_set_fill_color(ctx, GColorWhite);
+    graphics_fill_rect(ctx, GRect(36, 2, second_text, 5), 0, GCornersAll);
+  
+}
+
 
 /*
  * Battery state change
@@ -256,6 +274,7 @@ static void window_load(Window *window) {
   icon_battery_normal = gbitmap_create_with_resource(RESOURCE_ID_WATCH_BATTERY_NORMAL);
   icon_battery_charge = gbitmap_create_with_resource(RESOURCE_ID_WATCH_BATTERY_CHARGE);
   image_error = gbitmap_create_with_resource(RESOURCE_ID_ERROR);
+  image_seconds = gbitmap_create_with_resource(RESOURCE_ID_SECONDS_IMAGE);
   
 
   //Create background pic 
@@ -263,6 +282,12 @@ static void window_load(Window *window) {
   image_layer_BMW = bitmap_layer_create(GRect(0, 0, 144, 168));
   bitmap_layer_set_bitmap(image_layer_BMW, image_BMW);
   layer_add_child(window_layer, bitmap_layer_get_layer(image_layer_BMW));
+  
+    //Create background seconds box
+  image_seconds = gbitmap_create_with_resource(RESOURCE_ID_SECONDS_IMAGE);
+  image_seconds_layer = bitmap_layer_create(GRect(34, 1, 64, 8));
+  bitmap_layer_set_bitmap(image_seconds_layer, image_seconds);
+  layer_add_child(window_layer, bitmap_layer_get_layer(image_seconds_layer));
     
    // Pebble Battery
   BatteryChargeState initial = battery_state_service_peek();
@@ -271,6 +296,13 @@ static void window_load(Window *window) {
   p_battery_layer = layer_create(GRect(111,0,35,15));
   layer_set_update_proc(p_battery_layer, p_battery_layer_update_callback);
   layer_add_child(window_get_root_layer(window), p_battery_layer);
+  
+ 
+  // Seconds Box
+  seconds_layer = layer_create(GRect(0,0,144,15));
+  layer_set_update_proc(seconds_layer, seconds_layer_update_callback);
+  layer_add_child(window_get_root_layer(window), seconds_layer);
+ 
   
  //Create bluetooth pic 
   image_BT = gbitmap_create_with_resource(RESOURCE_ID_BLUETOOTH_ON);
@@ -400,6 +432,7 @@ static void window_unload(Window *window) {
   layer_destroy(p_battery_layer);
   gbitmap_destroy(icon_battery_normal);
   gbitmap_destroy(icon_battery_charge);
+
   
   // destroy the image layers
   gbitmap_destroy(image);
@@ -413,6 +446,10 @@ static void window_unload(Window *window) {
   gbitmap_destroy(image_BR);
   layer_remove_from_parent(bitmap_layer_get_layer(image_layer_BR));
   bitmap_layer_destroy(image_layer_BR);
+  
+  gbitmap_destroy(image_seconds);
+  layer_remove_from_parent(bitmap_layer_get_layer(image_seconds_layer));
+  bitmap_layer_destroy(image_seconds_layer);
   
   
   gbitmap_destroy(image_BT);
@@ -490,6 +527,31 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
 //}   
 
 
+
+void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
+
+  static char second_text_char[] = "00";
+  
+    strftime(second_text_char, sizeof(second_text_char), "%S", tick_time); 
+    second_text = atoi(second_text_char);
+  
+  
+  static char hour_text[] = "x0x00";
+  static char wkday_text[] = "XxxxXxxxxx";
+
+  strftime(hour_text, sizeof(hour_text), "%r", tick_time);
+  text_layer_set_text(text_time_layer, hour_text);
+
+  strftime(wkday_text, sizeof(wkday_text), "%c", tick_time);
+  text_layer_set_text(text_wkday_layer, wkday_text);
+  
+  
+    disp_update();
+
+}
+
+
+
 static void init(void) {
   window = window_create();
   app_message_init();
@@ -505,6 +567,7 @@ static void init(void) {
 
   // subscribe to update every minute
   tick_timer_service_subscribe(MINUTE_UNIT, handle_minute_tick);
+  tick_timer_service_subscribe(SECOND_UNIT, handle_second_tick);
   //tick_timer_service_subscribe(HOUR_UNIT, handle_hour_tick);  
   
   battery_state_service_subscribe(battery_state_handler);
