@@ -1,17 +1,13 @@
 {
-    "appKeys": {
-        "temp_min": 5,
-        "temperature_f": 0,
-        "location": 4,
-        "error": 3,
-        "icon": 2,
-        "temperature_c": 1,
-        "temp_max": 6
+    "watchapp": {
+        "watchface": true
     },
     "longName": "Brazil",
-    "uuid": "421c8875-1951-4ea6-94e4-19ca9250b13b",
-    "versionLabel": "2.0",
+    "shortName": "Brazil",
     "companyName": "Lipe_Giba",
+    "capabilities": [
+        "location"
+    ],
     "resources": {
         "media": [
             {
@@ -46,39 +42,39 @@
             },
             {
                 "file": "fonts/Roboto-Bold.ttf",
+                "characterRegex": "[0-9:.-]",
                 "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_24",
-                "characterRegex": "[0-9:.-]"
+                "name": "FONT_ROBOTO_BOLD_SUBSET_24"
             },
             {
                 "file": "fonts/Roboto-Bold.ttf",
+                "characterRegex": "[0-9:.-]",
                 "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_49",
-                "characterRegex": "[0-9:.-]"
+                "name": "FONT_ROBOTO_BOLD_SUBSET_49"
             },
             {
                 "file": "fonts/Roboto-Bold.ttf",
+                "characterRegex": "[0-9:]",
                 "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_39",
-                "characterRegex": "[0-9:]"
+                "name": "FONT_ROBOTO_BOLD_SUBSET_39"
             },
             {
                 "file": "fonts/Roboto-Bold.ttf",
+                "characterRegex": "[0-9:.-]",
                 "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_16",
-                "characterRegex": "[0-9:.-]"
+                "name": "FONT_ROBOTO_BOLD_SUBSET_16"
             },
             {
                 "file": "fonts/Roboto-Bold.ttf",
+                "characterRegex": "[0-9:.-]",
                 "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_14",
-                "characterRegex": "[0-9:.-]"
+                "name": "FONT_ROBOTO_BOLD_SUBSET_14"
             },
             {
                 "file": "fonts/Roboto-Bold.ttf",
+                "characterRegex": "[0-9:.-]",
                 "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_12",
-                "characterRegex": "[0-9:.-]"
+                "name": "FONT_ROBOTO_BOLD_SUBSET_12"
             },
             {
                 "file": "fonts/Roboto-Condensed.ttf",
@@ -167,12 +163,16 @@
             }
         ]
     },
-    "watchapp": {
-        "watchface": true
+    "uuid": "421c8875-1951-4ea6-94e4-19ca9250b13b",
+    "versionLabel": "2.0",
+    "appKeys": {
+        "temp_min": 5,
+        "location": 4,
+        "temperature_f": 0,
+        "temp_max": 6,
+        "temperature_c": 1,
+        "error": 3,
+        "icon": 2
     },
-    "capabilities": [
-        "location"
-    ],
-    "shortName": "Brazil",
     "versionCode": 1
 }

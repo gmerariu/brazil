@@ -397,19 +397,19 @@ static void window_load(Window *window) {
   //fonts_get_system_font(FONT_KEY_GOTHIC_14)
   
     // create temperature MIN layer 
-  text_temp_min = text_layer_create(GRect(33, 60, 20, 20));
+  text_temp_min = text_layer_create(GRect(35, 58, 25, 20));
   text_layer_set_text_alignment(text_temp_min, GTextAlignmentLeft);
   text_layer_set_text_color(text_temp_min, GColorWhite);
   text_layer_set_background_color(text_temp_min, GColorClear);
-  text_layer_set_font(text_temp_min, fonts_get_system_font(FONT_KEY_GOTHIC_14));
+  text_layer_set_font(text_temp_min, fonts_get_system_font(FONT_KEY_GOTHIC_18));
   layer_add_child(window_layer, text_layer_get_layer(text_temp_min));
   
       // create temperature MAX layer 
-  text_temp_max = text_layer_create(GRect(91, 60, 20, 20));
+  text_temp_max = text_layer_create(GRect(85, 58, 25, 20));
   text_layer_set_text_alignment(text_temp_max, GTextAlignmentRight);
   text_layer_set_text_color(text_temp_max, GColorWhite);
   text_layer_set_background_color(text_temp_max, GColorClear);
-  text_layer_set_font(text_temp_max, fonts_get_system_font(FONT_KEY_GOTHIC_14));
+  text_layer_set_font(text_temp_max, fonts_get_system_font(FONT_KEY_GOTHIC_18));
   layer_add_child(window_layer, text_layer_get_layer(text_temp_max));
   
 }
