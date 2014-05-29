@@ -62,11 +62,14 @@ static BitmapLayer *image_layer_BR;
 static BitmapLayer *image_layer_BT;
 static BitmapLayer *image_seconds_layer;
 
+static BitmapLayer *reset_update_layer;
+
 static uint8_t battery_level;
 static bool battery_plugged;
 static char battery_level_string[5];
 
 static int second_text =0;
+static int reset_update_timer=1;
 
 //Layer *window_layer;
 
@@ -114,7 +117,7 @@ void disp_update(void){
 
 void in_received_handler(DictionaryIterator *received, void *context) {
   // incoming message received
-  
+  reset_update_timer=1;
   
   // Celsius or Fahrenheit?
   
@@ -133,12 +136,12 @@ void in_received_handler(DictionaryIterator *received, void *context) {
   str_stock_change = stock_change->value->cstring;
   str_temp_min = temp_min->value->cstring;
   str_temp_max = temp_max->value->cstring;
-
   
-  
+ 
   //strncpy(str_stock_change, stock_change->value->cstring, 6);
    
   disp_update();
+  
  
   //if (temperature) {
     
@@ -214,11 +217,21 @@ static void p_battery_layer_update_callback(Layer *layer, GContext *ctx) {
 
 static void seconds_layer_update_callback(Layer *layer, GContext *ctx) {
     
+    graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34,8,64,8));
+    graphics_context_set_compositing_mode(ctx, GCompOpAssign);
+    graphics_context_set_stroke_color(ctx, GColorClear);
+    graphics_context_set_fill_color(ctx, GColorWhite);
+    graphics_fill_rect(ctx, GRect(36, 10, reset_update_timer/1800,4), 0, GCornersAll);  
+  
+  
     graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34, 3, 64, 8));
     graphics_context_set_compositing_mode(ctx, GCompOpAssign);
     graphics_context_set_stroke_color(ctx, GColorClear);
     graphics_context_set_fill_color(ctx, GColorWhite);
     graphics_fill_rect(ctx, GRect(36, 4, second_text, 5), 0, GCornersAll);
+  
+  
+
   
 }
 
@@ -430,11 +443,17 @@ static void window_unload(Window *window) {
   text_layer_destroy(text_temp_max);
   
   layer_destroy(p_battery_layer);
+  
+  
+    // destroy the image layers
   gbitmap_destroy(icon_battery_normal);
   gbitmap_destroy(icon_battery_charge);
-
   
-  // destroy the image layers
+  //gbitmap_destroy(image_reset_update);
+  layer_remove_from_parent(bitmap_layer_get_layer(reset_update_layer));
+  bitmap_layer_destroy(reset_update_layer);
+       
+
   gbitmap_destroy(image);
   layer_remove_from_parent(bitmap_layer_get_layer(image_layer));
   bitmap_layer_destroy(image_layer);
@@ -544,6 +563,8 @@ void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
 
   strftime(wkday_text, sizeof(wkday_text), "%c", tick_time);
   text_layer_set_text(text_wkday_layer, wkday_text);
+  
+  reset_update_timer = reset_update_timer +1;
   
   
     disp_update();
