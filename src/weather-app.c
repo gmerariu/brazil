@@ -220,18 +220,18 @@ static void p_battery_layer_update_callback(Layer *layer, GContext *ctx) {
 
 static void seconds_layer_update_callback(Layer *layer, GContext *ctx) {
     
-    graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34,6,64,8));
+    graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34,8,64,8));
     graphics_context_set_compositing_mode(ctx, GCompOpAssign);
     graphics_context_set_stroke_color(ctx, GColorClear);
     graphics_context_set_fill_color(ctx, GColorWhite);
-    graphics_fill_rect(ctx, GRect(36, 8, reset_update_timer/30,4), 0, GCornersAll);  
+    graphics_fill_rect(ctx, GRect(36, 10, reset_update_timer/30,4), 0, GCornersAll);  
   
   
-    graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34, 1, 64, 8));
+    graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34, 0, 64, 8));
     graphics_context_set_compositing_mode(ctx, GCompOpAssign);
     graphics_context_set_stroke_color(ctx, GColorClear);
     graphics_context_set_fill_color(ctx, GColorWhite);
-    graphics_fill_rect(ctx, GRect(36, 2, second_text, 5), 0, GCornersAll);
+    graphics_fill_rect(ctx, GRect(36, 1, second_text, 5), 0, GCornersAll);
   
   
 }

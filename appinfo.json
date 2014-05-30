@@ -1,178 +1,178 @@
 {
-    "watchapp": {
-        "watchface": true
-    },
     "longName": "Brazil",
-    "shortName": "Brazil",
     "companyName": "Lipe_Giba",
+    "uuid": "421c8875-1951-4ea6-94e4-19ca9250b13b",
     "capabilities": [
         "location"
     ],
+    "versionLabel": "2.0",
+    "appKeys": {
+        "temp_min": 5,
+        "temp_max": 6,
+        "error": 3,
+        "location": 4,
+        "temperature_f": 0,
+        "temperature_c": 1,
+        "icon": 2
+    },
     "resources": {
         "media": [
             {
                 "file": "images/seconds_box.png",
-                "type": "png",
-                "name": "SECONDS_IMAGE"
+                "name": "SECONDS_IMAGE",
+                "type": "png"
             },
             {
                 "file": "images/bt20.png",
-                "type": "png",
-                "name": "BLUETOOTH_ON"
+                "name": "BLUETOOTH_ON",
+                "type": "png"
             },
             {
                 "file": "images/bmw-m-series-logo-720p.png",
-                "type": "png",
-                "name": "BMW_M"
+                "name": "BMW_M",
+                "type": "png"
             },
             {
                 "file": "images/BrazilFlag84x50.png",
-                "type": "png",
-                "name": "brazil_flag"
+                "name": "brazil_flag",
+                "type": "png"
             },
             {
                 "file": "images/watch-battery-normal.png",
-                "type": "png",
-                "name": "WATCH_BATTERY_NORMAL"
+                "name": "WATCH_BATTERY_NORMAL",
+                "type": "png"
             },
             {
                 "file": "images/watch-battery-charge.png",
-                "type": "png",
-                "name": "WATCH_BATTERY_CHARGE"
+                "name": "WATCH_BATTERY_CHARGE",
+                "type": "png"
             },
             {
-                "file": "fonts/Roboto-Bold.ttf",
                 "characterRegex": "[0-9:.-]",
-                "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_24"
+                "file": "fonts/Roboto-Bold.ttf",
+                "name": "FONT_ROBOTO_BOLD_SUBSET_24",
+                "type": "font"
             },
             {
-                "file": "fonts/Roboto-Bold.ttf",
                 "characterRegex": "[0-9:.-]",
-                "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_49"
+                "file": "fonts/Roboto-Bold.ttf",
+                "name": "FONT_ROBOTO_BOLD_SUBSET_49",
+                "type": "font"
             },
             {
-                "file": "fonts/Roboto-Bold.ttf",
                 "characterRegex": "[0-9:]",
-                "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_39"
-            },
-            {
                 "file": "fonts/Roboto-Bold.ttf",
-                "characterRegex": "[0-9:.-]",
-                "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_16"
+                "name": "FONT_ROBOTO_BOLD_SUBSET_39",
+                "type": "font"
             },
             {
+                "characterRegex": "[0-9:.-]",
                 "file": "fonts/Roboto-Bold.ttf",
-                "characterRegex": "[0-9:.-]",
-                "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_14"
+                "name": "FONT_ROBOTO_BOLD_SUBSET_16",
+                "type": "font"
             },
             {
+                "characterRegex": "[0-9:.-]",
                 "file": "fonts/Roboto-Bold.ttf",
+                "name": "FONT_ROBOTO_BOLD_SUBSET_14",
+                "type": "font"
+            },
+            {
                 "characterRegex": "[0-9:.-]",
-                "type": "font",
-                "name": "FONT_ROBOTO_BOLD_SUBSET_12"
+                "file": "fonts/Roboto-Bold.ttf",
+                "name": "FONT_ROBOTO_BOLD_SUBSET_12",
+                "type": "font"
             },
             {
                 "file": "fonts/Roboto-Condensed.ttf",
-                "type": "font",
-                "name": "FONT_ROBOTO_CONDENSED_10"
+                "name": "FONT_ROBOTO_CONDENSED_10",
+                "type": "font"
             },
             {
                 "file": "fonts/Roboto-Condensed.ttf",
-                "type": "font",
-                "name": "FONT_ROBOTO_CONDENSED_12"
+                "name": "FONT_ROBOTO_CONDENSED_12",
+                "type": "font"
             },
             {
                 "file": "fonts/Roboto-Condensed.ttf",
-                "type": "font",
-                "name": "FONT_ROBOTO_CONDENSED_11"
+                "name": "FONT_ROBOTO_CONDENSED_11",
+                "type": "font"
             },
             {
                 "file": "fonts/Roboto-Condensed.ttf",
-                "type": "font",
-                "name": "FONT_ROBOTO_CONDENSED_16"
+                "name": "FONT_ROBOTO_CONDENSED_16",
+                "type": "font"
             },
             {
                 "file": "fonts/Roboto-Condensed.ttf",
-                "type": "font",
-                "name": "FONT_ROBOTO_CONDENSED_19"
+                "name": "FONT_ROBOTO_CONDENSED_19",
+                "type": "font"
             },
             {
                 "file": "fonts/Roboto-Condensed.ttf",
-                "type": "font",
-                "name": "FONT_ROBOTO_CONDENSED_21"
+                "name": "FONT_ROBOTO_CONDENSED_21",
+                "type": "font"
             },
             {
                 "file": "images/wind.png",
-                "type": "png",
-                "name": "WIND"
+                "name": "WIND",
+                "type": "png"
             },
             {
                 "file": "images/snow.png",
-                "type": "png",
-                "name": "SNOW"
+                "name": "SNOW",
+                "type": "png"
             },
             {
                 "file": "images/sleet.png",
-                "type": "png",
-                "name": "SLEET"
+                "name": "SLEET",
+                "type": "png"
             },
             {
                 "file": "images/rain.png",
-                "type": "png",
-                "name": "RAIN"
+                "name": "RAIN",
+                "type": "png"
             },
             {
                 "file": "images/partly-cloudy-night.png",
-                "type": "png",
-                "name": "PARTLY_CLOUDY_NIGHT"
+                "name": "PARTLY_CLOUDY_NIGHT",
+                "type": "png"
             },
             {
                 "file": "images/partly-cloudy-day.png",
-                "type": "png",
-                "name": "PARTLY_CLOUDY_DAY"
+                "name": "PARTLY_CLOUDY_DAY",
+                "type": "png"
             },
             {
                 "file": "images/fog.png",
-                "type": "png",
-                "name": "FOG"
+                "name": "FOG",
+                "type": "png"
             },
             {
                 "file": "images/error.png",
-                "type": "png",
-                "name": "ERROR"
+                "name": "ERROR",
+                "type": "png"
             },
             {
                 "file": "images/cloudy.png",
-                "type": "png",
-                "name": "CLOUDY"
+                "name": "CLOUDY",
+                "type": "png"
             },
             {
                 "file": "images/clear-night.png",
-                "type": "png",
-                "name": "CLEAR_NIGHT"
+                "name": "CLEAR_NIGHT",
+                "type": "png"
             },
             {
                 "file": "images/clear-day.png",
-                "type": "png",
-                "name": "CLEAR_DAY"
+                "name": "CLEAR_DAY",
+                "type": "png"
             }
         ]
     },
-    "uuid": "421c8875-1951-4ea6-94e4-19ca9250b13b",
-    "versionLabel": "2.0",
-    "appKeys": {
-        "temp_min": 5,
-        "location": 4,
-        "temperature_f": 0,
-        "temp_max": 6,
-        "temperature_c": 1,
-        "error": 3,
-        "icon": 2
+    "watchapp": {
+        "watchface": true
     },
+    "shortName": "Brazil",
     "versionCode": 1
 }
