@@ -103,7 +103,11 @@ enum {
 
 void disp_update(void){
        
-
+  if (str_temp) {
+     unit_layer="C";
+  } else {
+      unit_layer=" ";
+    }
         
       text_layer_set_text(text_unit_layer, unit_layer);
       text_layer_set_text(text_temp_layer, str_temp);    
@@ -143,13 +147,12 @@ void in_received_handler(DictionaryIterator *received, void *context) {
  
   //strncpy(str_stock_change, stock_change->value->cstring, 6);
    
-  disp_update();
-  
  
-  //if (temperature) {
+ 
+
     
-    
-  //}
+  
+    disp_update();
 
   if (icon) {
     // figure out which resource to use
