@@ -23,7 +23,8 @@ var icons = [
 
 
 function getAndShowWeather ( ) {
-  fetchStockQuote(stock_symbol);
+  fetchStockQuoteYahoo(stock_symbol);
+  //fetchStockQuote(stock_symbol);
   navigator.geolocation.getCurrentPosition(function (position) {
     
     // position.coords.latitude, position.coords.longitude
@@ -60,7 +61,31 @@ function fetchStockQuote(symbol) {
   req.send(null);
 }
 
-
+function fetchStockQuoteYahoo(symbol) {
+  var response;
+  var req = new XMLHttpRequest();
+  // build the GET request
+  req.open('GET', "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22" + symbol + "%22)&format=json&env=http://datatables.org/alltables.env", true);
+  req.onload = function(e) {
+    if (req.readyState == 4) {
+      // 200 - HTTP OK
+      if(req.status == 200) {
+        console.log(req.responseText);
+        response = JSON.parse(req.responseText);
+        //var price;
+      
+        if (response) {
+          // data found, look for LastPrice
+          price = response.query.results.quote.LastTradePriceOnly;
+          price_change = response.query.results.quote.Change;
+          console.log(price);
+          console.log(price_change);
+        }
+      }
+    }
+  };
+  req.send(null);
+}
 
 
 function getCurrentWeather (lon, lat) {
