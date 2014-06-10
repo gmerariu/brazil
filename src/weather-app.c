@@ -11,13 +11,14 @@ TextLayer *text_temp_layer;
 
 TextLayer *text_unit_layer;
 static char *unit_layer="C";
-//static bool c_or_f;
+static char *late="False";
 static char *str_temp;
 static char *str_temp_F;
 static char *str_temp_min;
 static char *str_temp_max;
 static char *str_stock = " ";
 static char *str_stock_change = " ";
+static int str_time_updated;
 
 TextLayer *text_day_layer;
 TextLayer *text_minute_layer;
@@ -103,6 +104,8 @@ enum {
 
 void disp_update(void){
        
+ //char str_time_updated2[]="00"; 
+  
   if (str_temp) {
      unit_layer="C";
   } else {
@@ -116,8 +119,8 @@ void disp_update(void){
       text_layer_set_text(text_temp_min, str_temp_min); 
       text_layer_set_text(text_temp_max, str_temp_max);  
   
- 
-  
+
+
 }
 
 void in_received_handler(DictionaryIterator *received, void *context) {
@@ -125,6 +128,7 @@ void in_received_handler(DictionaryIterator *received, void *context) {
   
   
   reset_update_timer=1;
+
   
   // Celsius or Fahrenheit?
   
@@ -147,11 +151,7 @@ void in_received_handler(DictionaryIterator *received, void *context) {
  
   //strncpy(str_stock_change, stock_change->value->cstring, 6);
    
- 
- 
-
     
-  
     disp_update();
 
   if (icon) {
@@ -227,8 +227,12 @@ static void seconds_layer_update_callback(Layer *layer, GContext *ctx) {
     graphics_context_set_compositing_mode(ctx, GCompOpAssign);
     graphics_context_set_stroke_color(ctx, GColorClear);
     graphics_context_set_fill_color(ctx, GColorWhite);
+    
+  if (reset_update_timer>1800) {
     graphics_fill_rect(ctx, GRect(36, 10, reset_update_timer/30,4), 0, GCornersAll);  
-  
+  } else {
+    graphics_fill_rect(ctx, GRect(36, 10, reset_update_timer/30,4), 2, GCornersAll);  
+  }
   
     graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34, 0, 64, 8));
     graphics_context_set_compositing_mode(ctx, GCompOpAssign);
@@ -568,10 +572,9 @@ void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
   strftime(wkday_text, sizeof(wkday_text), "%c", tick_time);
   text_layer_set_text(text_wkday_layer, wkday_text);
   
-  if (reset_update_timer <= 1800){
+  if (reset_update_timer <= 1801){
     reset_update_timer = reset_update_timer +1;
-  }
-  
+  }   
   
     disp_update();
 
