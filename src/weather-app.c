@@ -223,17 +223,21 @@ static void p_battery_layer_update_callback(Layer *layer, GContext *ctx) {
 
 static void seconds_layer_update_callback(Layer *layer, GContext *ctx) {
     
+  // fill update time bar  
     graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34,8,64,8));
     graphics_context_set_compositing_mode(ctx, GCompOpAssign);
     graphics_context_set_stroke_color(ctx, GColorClear);
     graphics_context_set_fill_color(ctx, GColorWhite);
     
-  if (reset_update_timer>1800) {
-    graphics_fill_rect(ctx, GRect(36, 10, reset_update_timer/30,4), 0, GCornersAll);  
+    
+  if (reset_update_timer<=1800){
+      graphics_fill_rect(ctx, GRect(36, 10, reset_update_timer/30,4), 0, GCornersAll); 
   } else {
-    graphics_fill_rect(ctx, GRect(36, 10, reset_update_timer/30,4), 2, GCornersAll);  
+      graphics_fill_rect(ctx, GRect(36, 11, (reset_update_timer-1800)/30,2), 0, GCornersAll); 
   }
+    
   
+  // fill seconds bar
     graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34, 0, 64, 8));
     graphics_context_set_compositing_mode(ctx, GCompOpAssign);
     graphics_context_set_stroke_color(ctx, GColorClear);
@@ -572,7 +576,7 @@ void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
   strftime(wkday_text, sizeof(wkday_text), "%c", tick_time);
   text_layer_set_text(text_wkday_layer, wkday_text);
   
-  if (reset_update_timer <= 1801){
+  if (reset_update_timer <= 3600){
     reset_update_timer = reset_update_timer +1;
   }   
   
