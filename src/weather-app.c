@@ -234,7 +234,7 @@ static void seconds_layer_update_callback(Layer *layer, GContext *ctx) {
       graphics_fill_rect(ctx, GRect(36, 10, reset_update_timer/30,4), 0, GCornersAll); 
   } else {
       graphics_context_set_stroke_color(ctx, GColorBlack);
-      graphics_fill_rect(ctx, GRect(36, 11, (reset_update_timer-1800)/30,2), 0, GCornersAll); 
+      graphics_fill_rect(ctx, GRect(36, 11, (reset_update_timer-1800)/3,2), 0, GCornersAll); 
   }
     
   
@@ -577,7 +577,7 @@ void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
   strftime(wkday_text, sizeof(wkday_text), "%c", tick_time);
   text_layer_set_text(text_wkday_layer, wkday_text);
   
-  if (reset_update_timer <= 3600){
+  if (reset_update_timer <= 1980){
     reset_update_timer = reset_update_timer +1;
   }   
   
