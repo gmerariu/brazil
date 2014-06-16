@@ -1,178 +1,178 @@
 {
-    "shortName": "Brazil",
-    "versionCode": 1,
-    "watchapp": {
-        "watchface": true
-    },
-    "capabilities": [
-        "location"
-    ],
-    "versionLabel": "2.0",
-    "companyName": "Lipe_Giba",
-    "longName": "Brazil",
-    "appKeys": {
-        "icon": 2,
-        "temp_min": 5,
-        "temperature_c": 1,
-        "error": 3,
-        "location": 4,
-        "temperature_f": 0,
-        "temp_max": 6
-    },
     "uuid": "421c8875-1951-4ea6-94e4-19ca9250b13b",
     "resources": {
         "media": [
             {
-                "file": "images/seconds_box.png",
                 "name": "SECONDS_IMAGE",
-                "type": "png"
+                "type": "png",
+                "file": "images/seconds_box.png"
             },
             {
-                "file": "images/bt20.png",
                 "name": "BLUETOOTH_ON",
-                "type": "png"
+                "type": "png",
+                "file": "images/bt20.png"
             },
             {
-                "file": "images/bmw-m-series-logo-720p.png",
                 "name": "BMW_M",
-                "type": "png"
+                "type": "png",
+                "file": "images/bmw-m-series-logo-720p.png"
             },
             {
-                "file": "images/BrazilFlag84x50.png",
                 "name": "brazil_flag",
-                "type": "png"
+                "type": "png",
+                "file": "images/BrazilFlag84x50.png"
             },
             {
-                "file": "images/watch-battery-normal.png",
                 "name": "WATCH_BATTERY_NORMAL",
-                "type": "png"
+                "type": "png",
+                "file": "images/watch-battery-normal.png"
             },
             {
-                "file": "images/watch-battery-charge.png",
                 "name": "WATCH_BATTERY_CHARGE",
-                "type": "png"
+                "type": "png",
+                "file": "images/watch-battery-charge.png"
             },
             {
-                "characterRegex": "[0-9:.-]",
-                "file": "fonts/Roboto-Bold.ttf",
                 "name": "FONT_ROBOTO_BOLD_SUBSET_24",
-                "type": "font"
+                "type": "font",
+                "characterRegex": "[0-9:.-]",
+                "file": "fonts/Roboto-Bold.ttf"
             },
             {
-                "characterRegex": "[0-9:.-]",
-                "file": "fonts/Roboto-Bold.ttf",
                 "name": "FONT_ROBOTO_BOLD_SUBSET_49",
-                "type": "font"
+                "type": "font",
+                "characterRegex": "[0-9:.-]",
+                "file": "fonts/Roboto-Bold.ttf"
             },
             {
-                "characterRegex": "[0-9:]",
-                "file": "fonts/Roboto-Bold.ttf",
                 "name": "FONT_ROBOTO_BOLD_SUBSET_39",
-                "type": "font"
+                "type": "font",
+                "characterRegex": "[0-9:]",
+                "file": "fonts/Roboto-Bold.ttf"
             },
             {
-                "characterRegex": "[0-9:.-]",
-                "file": "fonts/Roboto-Bold.ttf",
                 "name": "FONT_ROBOTO_BOLD_SUBSET_16",
-                "type": "font"
+                "type": "font",
+                "characterRegex": "[0-9:.-]",
+                "file": "fonts/Roboto-Bold.ttf"
             },
             {
-                "characterRegex": "[0-9:.-]",
-                "file": "fonts/Roboto-Bold.ttf",
                 "name": "FONT_ROBOTO_BOLD_SUBSET_14",
-                "type": "font"
-            },
-            {
+                "type": "font",
                 "characterRegex": "[0-9:.-]",
-                "file": "fonts/Roboto-Bold.ttf",
+                "file": "fonts/Roboto-Bold.ttf"
+            },
+            {
                 "name": "FONT_ROBOTO_BOLD_SUBSET_12",
-                "type": "font"
+                "type": "font",
+                "characterRegex": "[0-9:.-]",
+                "file": "fonts/Roboto-Bold.ttf"
             },
             {
-                "file": "fonts/Roboto-Condensed.ttf",
                 "name": "FONT_ROBOTO_CONDENSED_10",
-                "type": "font"
+                "type": "font",
+                "file": "fonts/Roboto-Condensed.ttf"
             },
             {
-                "file": "fonts/Roboto-Condensed.ttf",
                 "name": "FONT_ROBOTO_CONDENSED_12",
-                "type": "font"
+                "type": "font",
+                "file": "fonts/Roboto-Condensed.ttf"
             },
             {
-                "file": "fonts/Roboto-Condensed.ttf",
                 "name": "FONT_ROBOTO_CONDENSED_11",
-                "type": "font"
+                "type": "font",
+                "file": "fonts/Roboto-Condensed.ttf"
             },
             {
-                "file": "fonts/Roboto-Condensed.ttf",
                 "name": "FONT_ROBOTO_CONDENSED_16",
-                "type": "font"
+                "type": "font",
+                "file": "fonts/Roboto-Condensed.ttf"
             },
             {
-                "file": "fonts/Roboto-Condensed.ttf",
                 "name": "FONT_ROBOTO_CONDENSED_19",
-                "type": "font"
+                "type": "font",
+                "file": "fonts/Roboto-Condensed.ttf"
             },
             {
-                "file": "fonts/Roboto-Condensed.ttf",
                 "name": "FONT_ROBOTO_CONDENSED_21",
-                "type": "font"
+                "type": "font",
+                "file": "fonts/Roboto-Condensed.ttf"
             },
             {
-                "file": "images/wind.png",
                 "name": "WIND",
-                "type": "png"
+                "type": "png",
+                "file": "images/wind.png"
             },
             {
-                "file": "images/snow.png",
                 "name": "SNOW",
-                "type": "png"
+                "type": "png",
+                "file": "images/snow.png"
             },
             {
-                "file": "images/sleet.png",
                 "name": "SLEET",
-                "type": "png"
+                "type": "png",
+                "file": "images/sleet.png"
             },
             {
-                "file": "images/rain.png",
                 "name": "RAIN",
-                "type": "png"
+                "type": "png",
+                "file": "images/rain.png"
             },
             {
-                "file": "images/partly-cloudy-night.png",
                 "name": "PARTLY_CLOUDY_NIGHT",
-                "type": "png"
+                "type": "png",
+                "file": "images/partly-cloudy-night.png"
             },
             {
-                "file": "images/partly-cloudy-day.png",
                 "name": "PARTLY_CLOUDY_DAY",
-                "type": "png"
+                "type": "png",
+                "file": "images/partly-cloudy-day.png"
             },
             {
-                "file": "images/fog.png",
                 "name": "FOG",
-                "type": "png"
+                "type": "png",
+                "file": "images/fog.png"
             },
             {
-                "file": "images/error.png",
                 "name": "ERROR",
-                "type": "png"
+                "type": "png",
+                "file": "images/error.png"
             },
             {
-                "file": "images/cloudy.png",
                 "name": "CLOUDY",
-                "type": "png"
+                "type": "png",
+                "file": "images/cloudy.png"
             },
             {
-                "file": "images/clear-night.png",
                 "name": "CLEAR_NIGHT",
-                "type": "png"
+                "type": "png",
+                "file": "images/clear-night.png"
             },
             {
-                "file": "images/clear-day.png",
                 "name": "CLEAR_DAY",
-                "type": "png"
+                "type": "png",
+                "file": "images/clear-day.png"
             }
         ]
-    }
+    },
+    "capabilities": [
+        "location"
+    ],
+    "companyName": "Lipe_Giba",
+    "shortName": "Brazil",
+    "longName": "Brazil",
+    "watchapp": {
+        "watchface": true
+    },
+    "versionCode": 1,
+    "appKeys": {
+        "icon": 2,
+        "location": 4,
+        "temp_min": 5,
+        "error": 3,
+        "temperature_c": 1,
+        "temp_max": 6,
+        "temperature_f": 0
+    },
+    "versionLabel": "2.0"
 }

@@ -226,14 +226,17 @@ static void seconds_layer_update_callback(Layer *layer, GContext *ctx) {
   // fill update time bar  
     graphics_draw_bitmap_in_rect(ctx, image_seconds, GRect(34,8,64,8));
     graphics_context_set_compositing_mode(ctx, GCompOpAssign);
-    graphics_context_set_fill_color(ctx, GColorWhite);
+    graphics_context_set_stroke_color(ctx, GColorClear);
     
     
   if (reset_update_timer<=1800){
-      graphics_context_set_stroke_color(ctx, GColorClear);
+      graphics_context_set_fill_color(ctx, GColorWhite);  
       graphics_fill_rect(ctx, GRect(36, 10, reset_update_timer/30,4), 0, GCornersAll); 
   } else {
-      graphics_context_set_stroke_color(ctx, GColorBlack);
+
+      graphics_context_set_fill_color(ctx, GColorBlack);
+      graphics_fill_rect(ctx, GRect(36, 10, 60,3), 0, GCornersAll); 
+      graphics_context_set_fill_color(ctx, GColorWhite);
       graphics_fill_rect(ctx, GRect(36, 11, (reset_update_timer-1800)/6,2), 0, GCornersAll); 
   }
     
