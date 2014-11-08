@@ -17,6 +17,7 @@ static char *str_temp_F;
 static char *str_temp_min;
 static char *str_temp_max;
 static char *str_feels_like;
+static char *str_wind_speed;
 static char *str_stock = " ";
 static char *str_stock_change = " ";
 
@@ -29,6 +30,7 @@ TextLayer *battery_level_layer;
 TextLayer *text_temp_min;
 TextLayer *text_temp_max;
 TextLayer *text_feels_like;
+TextLayer *text_wind_speed;
 
 TextLayer *text_stock_layer;
 TextLayer *text_stock_change_layer;
@@ -101,7 +103,8 @@ enum {
   LOCATION,
   TEMP_MIN,
   TEMP_MAX,
-  FEELS_LIKE
+  FEELS_LIKE,
+  WIND_SPEED
 };
 
 void disp_update(void){
@@ -120,7 +123,8 @@ void disp_update(void){
       text_layer_set_text(text_stock_change_layer, str_stock_change);
       text_layer_set_text(text_temp_min, str_temp_min); 
       text_layer_set_text(text_temp_max, str_temp_max);
-      text_layer_set_text(text_feels_like, str_feels_like);    
+      text_layer_set_text(text_feels_like, str_feels_like);   
+      text_layer_set_text(text_wind_speed, str_wind_speed); 
   
 
 
@@ -143,6 +147,7 @@ void in_received_handler(DictionaryIterator *received, void *context) {
   Tuple *temp_min = dict_find(received, TEMP_MIN);
   Tuple *temp_max = dict_find(received, TEMP_MAX);
   Tuple *feels_like = dict_find(received, FEELS_LIKE);
+  Tuple *wind_speed = dict_find(received, WIND_SPEED);
   
   
   str_temp = temperature->value->cstring;
@@ -152,6 +157,7 @@ void in_received_handler(DictionaryIterator *received, void *context) {
   str_temp_min = temp_min->value->cstring;
   str_temp_max = temp_max->value->cstring;
   str_feels_like = feels_like->value->cstring;
+  str_wind_speed = wind_speed->value->cstring;
   
  
   //strncpy(str_stock_change, stock_change->value->cstring, 6);
@@ -454,6 +460,14 @@ static void window_load(Window *window) {
   text_layer_set_font(text_feels_like, fonts_get_system_font(FONT_KEY_GOTHIC_18));
   layer_add_child(window_layer, text_layer_get_layer(text_feels_like));
   
+          // create temperature wind_speed layer 
+  text_wind_speed = text_layer_create(GRect(35, 85, 25, 20));
+  text_layer_set_text_alignment(text_wind_speed, GTextAlignmentLeft);
+  text_layer_set_text_color(text_wind_speed, GColorWhite);
+  text_layer_set_background_color(text_wind_speed, GColorClear);
+  text_layer_set_font(text_wind_speed, fonts_get_system_font(FONT_KEY_GOTHIC_18));
+  layer_add_child(window_layer, text_layer_get_layer(text_wind_speed));
+  
 }
 
 static void window_unload(Window *window) {
@@ -471,6 +485,7 @@ static void window_unload(Window *window) {
   text_layer_destroy(text_temp_min);
   text_layer_destroy(text_temp_max);
   text_layer_destroy(text_feels_like);
+  text_layer_destroy(text_wind_speed);
   
   layer_destroy(p_battery_layer);
   
