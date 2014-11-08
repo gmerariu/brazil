@@ -11,14 +11,15 @@ TextLayer *text_temp_layer;
 
 TextLayer *text_unit_layer;
 static char *unit_layer="C";
-static char *late="False";
+
 static char *str_temp;
 static char *str_temp_F;
 static char *str_temp_min;
 static char *str_temp_max;
+static char *str_feels_like;
 static char *str_stock = " ";
 static char *str_stock_change = " ";
-static int str_time_updated;
+
 
 TextLayer *text_day_layer;
 TextLayer *text_minute_layer;
@@ -27,6 +28,7 @@ TextLayer *battery_level_layer;
 
 TextLayer *text_temp_min;
 TextLayer *text_temp_max;
+TextLayer *text_feels_like;
 
 TextLayer *text_stock_layer;
 TextLayer *text_stock_change_layer;
@@ -49,8 +51,7 @@ static GBitmap *image_error = NULL;
 static GBitmap *icon_battery_normal;
 static GBitmap *icon_battery_charge; 
 void set_battery(uint8_t state, int8_t level);
-static GBitmap *icon_status_1;
-static GBitmap *icon_status_2;
+
 
 static Layer *p_battery_layer;
 static Layer *seconds_layer;
@@ -99,7 +100,8 @@ enum {
   WEATHER_ERROR,
   LOCATION,
   TEMP_MIN,
-  TEMP_MAX
+  TEMP_MAX,
+  FEELS_LIKE
 };
 
 void disp_update(void){
@@ -117,7 +119,8 @@ void disp_update(void){
       text_layer_set_text(text_stock_layer, str_stock);
       text_layer_set_text(text_stock_change_layer, str_stock_change);
       text_layer_set_text(text_temp_min, str_temp_min); 
-      text_layer_set_text(text_temp_max, str_temp_max);  
+      text_layer_set_text(text_temp_max, str_temp_max);
+      text_layer_set_text(text_feels_like, str_feels_like);    
   
 
 
@@ -139,6 +142,7 @@ void in_received_handler(DictionaryIterator *received, void *context) {
   Tuple *stock_change = dict_find(received, WEATHER_ERROR);
   Tuple *temp_min = dict_find(received, TEMP_MIN);
   Tuple *temp_max = dict_find(received, TEMP_MAX);
+  Tuple *feels_like = dict_find(received, FEELS_LIKE);
   
   
   str_temp = temperature->value->cstring;
@@ -147,6 +151,7 @@ void in_received_handler(DictionaryIterator *received, void *context) {
   str_stock_change = stock_change->value->cstring;
   str_temp_min = temp_min->value->cstring;
   str_temp_max = temp_max->value->cstring;
+  str_feels_like = feels_like->value->cstring;
   
  
   //strncpy(str_stock_change, stock_change->value->cstring, 6);
@@ -235,9 +240,9 @@ static void seconds_layer_update_callback(Layer *layer, GContext *ctx) {
   } else {
 
       graphics_context_set_fill_color(ctx, GColorBlack);
-      graphics_fill_rect(ctx, GRect(36, 10, 60,3), 0, GCornersAll); 
+      graphics_fill_rect(ctx, GRect(36, 10, 60,4), 0, GCornersAll); 
       graphics_context_set_fill_color(ctx, GColorWhite);
-      graphics_fill_rect(ctx, GRect(36, 11, (reset_update_timer-1800)/6,2), 0, GCornersAll); 
+      graphics_fill_rect(ctx, GRect(36, 11, (reset_update_timer-1800)/6,1), 0, GCornersAll); 
   }
     
   
@@ -441,6 +446,14 @@ static void window_load(Window *window) {
   text_layer_set_font(text_temp_max, fonts_get_system_font(FONT_KEY_GOTHIC_18));
   layer_add_child(window_layer, text_layer_get_layer(text_temp_max));
   
+        // create temperature feels_like layer 
+  text_feels_like = text_layer_create(GRect(85, 85, 25, 20));
+  text_layer_set_text_alignment(text_feels_like, GTextAlignmentRight);
+  text_layer_set_text_color(text_feels_like, GColorWhite);
+  text_layer_set_background_color(text_feels_like, GColorClear);
+  text_layer_set_font(text_feels_like, fonts_get_system_font(FONT_KEY_GOTHIC_18));
+  layer_add_child(window_layer, text_layer_get_layer(text_feels_like));
+  
 }
 
 static void window_unload(Window *window) {
@@ -457,6 +470,7 @@ static void window_unload(Window *window) {
   text_layer_destroy(text_stock_change_layer);
   text_layer_destroy(text_temp_min);
   text_layer_destroy(text_temp_max);
+  text_layer_destroy(text_feels_like);
   
   layer_destroy(p_battery_layer);
   

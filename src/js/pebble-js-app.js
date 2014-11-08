@@ -113,6 +113,7 @@ function getCurrentWeather (lon, lat) {
             send.location = Number(price).toFixed(2);
             send.temp_min = Number(FtoC(response.daily.data[0].temperatureMin)).toFixed(0);
             send.temp_max = Number(FtoC(response.daily.data[0].temperatureMax)).toFixed(0);
+            send.feels_like = Number(FtoC(response.currently.apparentTemperature)).toFixed(0);
           }
 
           Pebble.sendAppMessage(send);
