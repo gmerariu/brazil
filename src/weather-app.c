@@ -21,6 +21,11 @@ static char *str_wind_speed;
 static char *str_stock = " ";
 static char *str_stock_change = " ";
 
+static char *str_wind = "W";
+static char *str_feels = "F";
+static char *str_min = "-";
+static char *str_max = "+";
+
 
 TextLayer *text_day_layer;
 TextLayer *text_minute_layer;
@@ -31,6 +36,11 @@ TextLayer *text_temp_min;
 TextLayer *text_temp_max;
 TextLayer *text_feels_like;
 TextLayer *text_wind_speed;
+
+TextLayer *min;
+TextLayer *max;
+TextLayer *wind;
+TextLayer *feels;
 
 TextLayer *text_stock_layer;
 TextLayer *text_stock_change_layer;
@@ -125,6 +135,11 @@ void disp_update(void){
       text_layer_set_text(text_temp_max, str_temp_max);
       text_layer_set_text(text_feels_like, str_feels_like);   
       text_layer_set_text(text_wind_speed, str_wind_speed); 
+  
+      text_layer_set_text(wind, str_wind); 
+      text_layer_set_text(feels, str_feels); 
+      text_layer_set_text(min, str_min); 
+      text_layer_set_text(max, str_max); 
   
 
 
@@ -468,6 +483,39 @@ static void window_load(Window *window) {
   text_layer_set_font(text_wind_speed, fonts_get_system_font(FONT_KEY_GOTHIC_18));
   layer_add_child(window_layer, text_layer_get_layer(text_wind_speed));
   
+            // create temperature wind layer 
+  wind = text_layer_create(GRect(16, 85, 25, 20));
+  text_layer_set_text_alignment(wind, GTextAlignmentLeft);
+  text_layer_set_text_color(wind, GColorWhite);
+  text_layer_set_background_color(wind, GColorClear);
+  text_layer_set_font(wind, fonts_get_system_font(FONT_KEY_GOTHIC_18));
+  layer_add_child(window_layer, text_layer_get_layer(wind));
+  
+              // create temperature feels layer 
+  feels = text_layer_create(GRect(100, 85, 25, 20));
+  text_layer_set_text_alignment(feels, GTextAlignmentRight);
+  text_layer_set_text_color(feels, GColorWhite);
+  text_layer_set_background_color(feels, GColorClear);
+  text_layer_set_font(feels, fonts_get_system_font(FONT_KEY_GOTHIC_18));
+  layer_add_child(window_layer, text_layer_get_layer(feels));
+  
+        // create temperature MAX layer 
+  max = text_layer_create(GRect(100, 58, 25, 20));
+  text_layer_set_text_alignment(max, GTextAlignmentRight);
+  text_layer_set_text_color(max, GColorWhite);
+  text_layer_set_background_color(max, GColorClear);
+  text_layer_set_font(max, fonts_get_system_font(FONT_KEY_GOTHIC_18));
+  layer_add_child(window_layer, text_layer_get_layer(max));
+  
+          // create temperature Min layer 
+  min = text_layer_create(GRect(18, 58, 25, 20));
+  text_layer_set_text_alignment(min, GTextAlignmentLeft);
+  text_layer_set_text_color(min, GColorWhite);
+  text_layer_set_background_color(min, GColorClear);
+  text_layer_set_font(min, fonts_get_system_font(FONT_KEY_GOTHIC_18));
+  layer_add_child(window_layer, text_layer_get_layer(min));
+  
+  
 }
 
 static void window_unload(Window *window) {
@@ -486,6 +534,10 @@ static void window_unload(Window *window) {
   text_layer_destroy(text_temp_max);
   text_layer_destroy(text_feels_like);
   text_layer_destroy(text_wind_speed);
+    text_layer_destroy(min);
+    text_layer_destroy(max);
+    text_layer_destroy(wind);
+    text_layer_destroy(feels);
   
   layer_destroy(p_battery_layer);
   
