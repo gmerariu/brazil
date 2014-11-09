@@ -23,8 +23,8 @@ static char *str_stock_change = " ";
 
 static char *str_wind = "W";
 static char *str_feels = "F";
-static char *str_min = "-";
-static char *str_max = "+";
+static char *str_min = "<";
+static char *str_max = ">";
 
 
 TextLayer *text_day_layer;
