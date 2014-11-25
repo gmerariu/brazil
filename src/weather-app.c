@@ -629,7 +629,7 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
   //text_layer_set_text(text_day_layer, "30");
  
   
-  strftime(wkday_text, sizeof(wkday_text), "%c", tick_time);
+  strftime(wkday_text, sizeof(wkday_text), "%a %b %e", tick_time);
   text_layer_set_text(text_wkday_layer, wkday_text);
   
   //text_layer_set_text(text_stock_layer, str_stock);
@@ -658,7 +658,7 @@ void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
   strftime(hour_text, sizeof(hour_text), "%r", tick_time);
   text_layer_set_text(text_time_layer, hour_text);
 
-  strftime(wkday_text, sizeof(wkday_text), "%c", tick_time);
+  strftime(wkday_text, sizeof(wkday_text), "%a %b %e", tick_time);
   text_layer_set_text(text_wkday_layer, wkday_text);
   
   if (reset_update_timer <= 2160){

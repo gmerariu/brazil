@@ -133,7 +133,7 @@ function FtoC (f) {
 
 Pebble.addEventListener("ready",
   function(e) {
-    setTimeout(getAndShowWeather, 2000);
+    setTimeout(getAndShowWeather, 5000);
    
   }
 );
