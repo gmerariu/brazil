@@ -612,7 +612,7 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
  
   //char *time_format;
 
-  strftime(hour_text, sizeof(hour_text), "%r", tick_time);
+  strftime(hour_text, sizeof(hour_text), "%l:%M", tick_time);
   text_layer_set_text(text_time_layer, hour_text);
 
   //strftime(minute_text, sizeof(minute_text), "%M", tick_time);
@@ -655,7 +655,7 @@ void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
   static char hour_text[] = "x0x00";
   static char wkday_text[] = "XxxxXxxxxx";
 
-  strftime(hour_text, sizeof(hour_text), "%r", tick_time);
+  strftime(hour_text, sizeof(hour_text), "%l:%M", tick_time);
   text_layer_set_text(text_time_layer, hour_text);
 
   strftime(wkday_text, sizeof(wkday_text), "%a %b %e", tick_time);
